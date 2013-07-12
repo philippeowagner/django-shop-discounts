@@ -14,7 +14,7 @@ class PercentDiscountMixin(models.Model):
     amount = models.DecimalField(_('Amount'), max_digits=5, decimal_places=2)
 
  
-    def get_extra_cart_price_field(self, cart):
+    def get_extra_cart_price_field(self, cart, request):
         total = sum(item.product.unit_price * item.quantity for item in cart.items.all())
         discount = ((self.amount / 100) * total).quantize(Decimal('1.00'))
         return (self.get_name(), -discount,)
