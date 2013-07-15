@@ -13,7 +13,7 @@ from models import CartDiscountCode
 
 class CartDiscountCodeCreateView(CreateView):
     model = CartDiscountCode
-    success_url = reverse_lazy('checkout_selection')
+    success_url = reverse_lazy('cart')
 
     def get_form_kwargs(self):
         kwargs = super(CartDiscountCodeCreateView, self).get_form_kwargs()
@@ -24,7 +24,7 @@ class CartDiscountCodeCreateView(CreateView):
 
 
 class CartDiscountCodeDeleteView(View):
-    success_url = reverse_lazy('checkout_selection')
+    success_url = reverse_lazy('cart')
 
     def get_success_url(self):
         return self.success_url
