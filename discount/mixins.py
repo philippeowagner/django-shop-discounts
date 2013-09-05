@@ -1,7 +1,10 @@
+from __future__ import division
+
+from decimal import Decimal
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-#from shop.cart.cart_modifiers_base import BaseCartModifier
 
 
 class PercentDiscountMixin(models.Model):
@@ -10,9 +13,12 @@ class PercentDiscountMixin(models.Model):
     """
     amount = models.DecimalField(_('Amount'), max_digits=5, decimal_places=2)
 
+ 
     def get_extra_cart_price_field(self, cart, request):
-        amount = (self.amount/100) * cart.subtotal_price
-        return (self.get_name(), amount,)
+        total = sum(item.product.unit_price * item.quantity for item in cart.items.all())
+        discount = ((self.amount / 100) * total).quantize(Decimal('1.00'))
+        return (self.get_name(), -discount,)
+ 
 
     class Meta:
         abstract = True
