@@ -31,6 +31,15 @@ The source code for django-shop-discounts can be found and contributed to on
 
 django-shop-discounts is currently considered alpha version.
 
+
+Congfuration Options
+--------------------
+
+settings.py
+# Allows: to add a pre- and suffix to the discount name.
+DISCOUNT_PREFIX = '' 
+DISCOUNT_SUFFIX = ''
+
 Example application
 -------------------
 

@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
@@ -55,8 +55,9 @@ class DiscountBase(PolymorphicModel, BaseCartModifier):
         return self.get_name()
 
     def get_name(self):
-        return self.name
-
+        return "{prefix}{name}{suffix}".format(prefix=getattr(settings, 'DISCOUNT_PREFIX', ''), \
+                name=self.name, suffix=getattr(settings, 'DISCOUNT_SUFFIX', '')) 
+        
     @classmethod
     def register_product_filter(cls, filt):
         """
